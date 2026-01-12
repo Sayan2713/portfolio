@@ -1,1 +1,42 @@
-<p>certificate works!</p>
+<section class="cert-section">
+  <div class="container">
+    <h2 class="section-title">Credentials <span class="dot">.</span></h2>
+
+    <div class="display-deck">
+      
+      <div class="menu-list">
+        <div 
+          class="menu-item" 
+          *ngFor="let cert of certs; let i = index" 
+          [class.active]="i === activeIndex"
+        >
+          <span class="arrow">➤</span>
+          <span class="title">{{ cert.title }}</span>
+          <div class="progress-line" [style.width]="i === activeIndex ? '100%' : '0%'"></div>
+        </div>
+      </div>
+
+      <div class="preview-stage">
+        <div class="holo-card" [style.border-color]="activeCert.color">
+          <div class="glow-bg" [style.background]="activeCert.color"></div>
+          
+          <div class="card-content">
+            <div class="big-icon">{{ activeCert.icon }}</div>
+            <h3>{{ activeCert.title }}</h3>
+            <div class="meta">
+              <span class="issuer">ISSUED BY: {{ activeCert.issuer }}</span>
+              <span class="year">YEAR: {{ activeCert.year }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    
+    <div class="scroll-hint">
+      <span>Scroll to Explore</span>
+      <div class="mouse-icon"></div>
+    </div>
+
+  </div>
+</section>
