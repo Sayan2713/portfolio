@@ -1,0 +1,69 @@
+.navbar {
+  position: fixed; /* Sticks to the top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000; /* Must be higher than the Hero layers */
+  
+  /* The Glass Effect */
+  background: rgba(0, 0, 0, 0.1); 
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+  .logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white;
+    font-family: 'Arial Black', sans-serif;
+    letter-spacing: -1px;
+    cursor: pointer;
+
+    .dot {
+      color: #87CEEB; /* Sky Blue accent */
+    }
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 3rem;
+    margin: 0;
+
+    li a {
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      position: relative;
+
+      /* Hover Animation */
+      &:hover {
+        color: #87CEEB; /* Sky Blue */
+        text-shadow: 0 0 10px rgba(135, 206, 235, 0.5);
+      }
+
+      /* subtle underline animation */
+      &::after {
+        content: '';
+        position: absolute;
+        width: 0%;
+        height: 2px;
+        bottom: -5px;
+        left: 0;
+        background-color: #87CEEB;
+        transition: width 0.3s;
+      }
+
+      &:hover::after {
+        width: 100%;
+      }
+    }
+  }
+}
