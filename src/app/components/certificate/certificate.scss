@@ -1,16 +1,15 @@
 .cert-section {
   background-color: #050505;
-  height: 100vh; /* Force full height for pinning */
+  padding: 6rem 2rem;
   color: white;
+  min-height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative; /* Needed for pin */
 
   .container {
     max-width: 1100px;
     width: 100%;
-    position: relative;
   }
 
   .section-title {
@@ -27,47 +26,43 @@
     align-items: center;
   }
 
-  /* LEFT SIDE */
+  /* LEFT SIDE: Menu */
   .menu-list {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
+    border-left: 1px solid rgba(255,255,255,0.1);
   }
 
   .menu-item {
-    padding: 1rem 0;
+    padding: 1.5rem 2rem;
     cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
     position: relative;
-    opacity: 0.3; /* Dim inactive items */
-    transition: opacity 0.3s;
+    opacity: 0.5;
 
     .arrow {
-      color: #87CEEB;
-      margin-right: 10px;
+      font-size: 0.8rem;
       opacity: 0;
       transform: translateX(-10px);
       transition: all 0.3s;
-      display: inline-block;
+      color: #87CEEB;
     }
 
     .title {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       font-family: 'Arial', sans-serif;
+      letter-spacing: 1px;
     }
 
-    .progress-line {
-      height: 2px;
-      background: #87CEEB;
-      margin-top: 10px;
-      width: 0%;
-      transition: width 0.3s ease; /* Smooth bar animation */
-      box-shadow: 0 0 10px #87CEEB;
-    }
-
-    /* ACTIVE STATE */
-    &.active {
-      opacity: 1; /* Light up active item */
+    /* Active / Hover State */
+    &:hover, &.active {
+      opacity: 1;
+      background: linear-gradient(90deg, rgba(255,255,255,0.05), transparent);
       
       .arrow {
         opacity: 1;
@@ -75,12 +70,13 @@
       }
       
       .title {
-        text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        color: #87CEEB;
+        text-shadow: 0 0 10px rgba(135, 206, 235, 0.4);
       }
     }
   }
 
-  /* RIGHT SIDE (Card) */
+  /* RIGHT SIDE: Holo Card */
   .preview-stage {
     flex: 1;
     display: flex;
@@ -91,8 +87,8 @@
   .holo-card {
     width: 350px;
     height: 450px;
-    background: rgba(10, 10, 10, 0.9);
-    border: 2px solid #87CEEB;
+    background: rgba(10, 10, 10, 0.8);
+    border: 1px solid #87CEEB; /* Dynamic color via TS */
     border-radius: 20px;
     position: relative;
     padding: 3rem;
@@ -101,8 +97,10 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    overflow: hidden;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
     backdrop-filter: blur(20px);
-    transition: border-color 0.5s; /* Slow transition for color change */
+    transition: border-color 0.3s;
 
     .glow-bg {
       position: absolute;
@@ -111,21 +109,27 @@
       transform: translate(-50%, -50%);
       width: 200px;
       height: 200px;
-      filter: blur(80px);
-      opacity: 0.15;
-      transition: background 0.5s;
+      filter: blur(100px);
+      opacity: 0.2;
+      z-index: 0;
+      transition: background 0.3s;
     }
 
-    .card-content { z-index: 2; }
+    .card-content {
+      position: relative;
+      z-index: 2;
+    }
 
     .big-icon {
       font-size: 5rem;
       margin-bottom: 2rem;
+      filter: drop-shadow(0 0 20px rgba(255,255,255,0.2));
     }
 
     h3 {
       font-size: 2rem;
       margin-bottom: 2rem;
+      line-height: 1.2;
       color: white;
     }
 
@@ -135,22 +139,38 @@
       gap: 0.5rem;
       font-family: monospace;
       color: #aaa;
+      font-size: 0.9rem;
       border-top: 1px solid rgba(255,255,255,0.2);
       padding-top: 1.5rem;
       width: 100%;
+      
+      span { letter-spacing: 2px; }
+    }
+
+    /* Moving Scan Line Effect */
+    .scan-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 10px rgba(255,255,255,0.5);
+      animation: scan 3s linear infinite;
     }
   }
+}
 
-  .scroll-hint {
-    position: absolute;
-    bottom: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.8rem;
-    color: #666;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-  }
+@keyframes scan {
+  0% { top: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .display-deck { flex-direction: column-reverse; }
+  .menu-list { width: 100%; border-left: none; border-top: 1px solid rgba(255,255,255,0.1); }
+  .holo-card { width: 100%; height: 300px; }
 }

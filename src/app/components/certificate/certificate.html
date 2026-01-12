@@ -7,12 +7,12 @@
       <div class="menu-list">
         <div 
           class="menu-item" 
-          *ngFor="let cert of certs; let i = index" 
-          [class.active]="i === activeIndex"
+          *ngFor="let cert of certs" 
+          (mouseenter)="setActive(cert)"
+          [class.active]="activeCert === cert"
         >
           <span class="arrow">➤</span>
           <span class="title">{{ cert.title }}</span>
-          <div class="progress-line" [style.width]="i === activeIndex ? '100%' : '0%'"></div>
         </div>
       </div>
 
@@ -27,16 +27,11 @@
               <span class="issuer">ISSUED BY: {{ activeCert.issuer }}</span>
               <span class="year">YEAR: {{ activeCert.year }}</span>
             </div>
+            <div class="scan-line"></div>
           </div>
         </div>
       </div>
 
     </div>
-    
-    <div class="scroll-hint">
-      <span>Scroll to Explore</span>
-      <div class="mouse-icon"></div>
-    </div>
-
   </div>
 </section>
