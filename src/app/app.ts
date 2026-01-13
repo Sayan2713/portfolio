@@ -54,7 +54,7 @@ export class AppComponent implements AfterViewInit {
       // 2. SCRUB THE VIDEO: Change currentTime based on scroll
       .fromTo(video, 
         { currentTime: 0 }, 
-        { currentTime: video.duration || 1, duration: 2, ease: 'none' }
+        { currentTime: video.duration || 1, duration: 1.5, ease: 'none' }
       );
     };
   }

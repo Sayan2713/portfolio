@@ -1,6 +1,9 @@
-import { Component, ElementRef, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-experience',
@@ -10,39 +13,37 @@ import { gsap } from 'gsap';
   styleUrl: './experience.scss'
 })
 export class ExperienceComponent implements AfterViewInit {
-  @ViewChildren('card1, card2') cards!: QueryList<ElementRef>;
+  @ViewChildren('jobCard') jobCards!: QueryList<ElementRef>;
 
   ngAfterViewInit() {
-    this.cards.forEach(card => {
+    this.jobCards.forEach((card) => {
       const el = card.nativeElement;
 
-      // Mouse Move Event (Tilt)
-      el.addEventListener('mousemove', (e: MouseEvent) => {
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left; // Mouse position inside card
-        const y = e.clientY - rect.top;
-        
-        // Calculate rotation (center is 0)
-        const xPct = (x / rect.width - 0.5) * 20; // -10 to 10 degrees
-        const yPct = (y / rect.height - 0.5) * -20; 
-
-        gsap.to(el, {
-          rotationY: xPct,
-          rotationX: yPct,
-          transformPerspective: 1000,
-          duration: 0.5,
-          ease: 'power2.out'
-        });
+      // Ensure initial state is set before animation starts
+      gsap.set(el, { 
+        opacity: 0, 
+        filter: "blur(20px)", // Start VERY blurred
+        y: 100 
       });
 
-      // Mouse Leave Event (Reset)
-      el.addEventListener('mouseleave', () => {
-        gsap.to(el, {
-          rotationY: 0,
-          rotationX: 0,
-          duration: 0.5,
-          ease: 'power2.out'
-        });
+      gsap.to(el, {
+        opacity: 1,
+        filter: "blur(0px)", // Become clear
+        y: 0,
+        duration: 1.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 80%",    // Start animating when card is near bottom of screen
+          end: "top 30%",      // Animation finishes here
+          
+          // ACTIONS:
+          // onEnter: Play forward (Blur -> Clear)
+          // onLeave: Do nothing
+          // onEnterBack: Do nothing
+          // onLeaveBack: Reverse (Clear -> Blur) -> This creates the re-blur on scroll up
+          toggleActions: "play none none reverse", 
+        }
       });
     });
   }

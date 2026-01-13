@@ -1,73 +1,162 @@
 .skills-section {
-  background-color: #000;
-  padding: 6rem 2rem;
-  color: white;
-  min-height: 80vh;
+  /* Mixed Blue Aurora Background */
+  background: linear-gradient(-45deg, #001f3f, #0088cc, #00bfff, #87ceeb);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  /* Add this inside .skills-section AND .experience-section */
+  background-attachment: fixed;
+
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
 
-  .section-title {
-    font-size: 3rem;
-    text-transform: uppercase;
-    font-family: 'Arial Black', sans-serif;
-    margin-bottom: 4rem;
-    text-align: center;
-    .dot { color: #87CEEB; }
-  }
-
-  .grid-wrapper {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
+  .container {
+    position: relative;
+    /* Allows absolute positioning of children */
     width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-  .skill-category {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 2rem;
-    border-radius: 16px;
-    transition: all 0.3s ease;
+  /* --- TOP LEFT: MY SKILLS --- */
+  .section-title {
+    position: absolute;
+    top: 50px;
+    /* Start near top */
+    left: 50px;
+    /* Start near left */
+    margin: 0;
 
-    h3 {
-      font-size: 1.5rem;
-      color: #87CEEB; /* Sky Blue */
-      margin-bottom: 1.5rem;
-      border-bottom: 1px solid rgba(135, 206, 235, 0.3);
-      padding-bottom: 0.5rem;
-      display: inline-block;
+    font-size: 4rem;
+    font-weight: 900;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    z-index: 10;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+    .highlight {
+      color: #E0FFFF;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+      display: block;
+      /* Puts "Skills" on a new line if desired, or remove to keep inline */
     }
+  }
 
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+  /* --- TOP MIDDLE: SUBTITLE --- */
+  .subtitle {
+    position: absolute;
+    top: 30px;
+    /* Very top */
+    left: 50%;
+    /* Center horizontal */
+    transform: translateX(-50%);
 
-      .tag {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 8px 16px;
-        border-radius: 50px;
-        font-size: 0.9rem;
-        transition: all 0.3s ease;
-        border: 1px solid transparent;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: monospace;
+    font-size: 1.2rem;
+    text-align: center;
+    width: 100%;
+    z-index: 10;
+    pointer-events: none;
+  }
 
-        &:hover {
-          background: rgba(135, 206, 235, 0.2);
-          color: #87CEEB;
-          border-color: #87CEEB;
-          box-shadow: 0 0 15px rgba(135, 206, 235, 0.4);
-          transform: translateY(-3px);
-          cursor: default;
-        }
+  /* --- TOP RIGHT: CHARACTER --- */
+  .floating-character {
+    position: absolute;
+    width: 180px;
+
+    top: 50px;
+    right: 50px;
+    /* Top Right side */
+
+    z-index: 3;
+    pointer-events: none;
+    transition: transform 0.1s ease-out;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));
+  }
+
+  /* Sphere Container - Centered */
+  .sphere-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 1000px;
+    margin-top: 0;
+    /* Centered */
+  }
+
+  /* TEXT STYLES (Unchanged) */
+  ::ng-deep .tagcloud {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+
+    .tagcloud--item {
+      color: white;
+      cursor: pointer;
+      font-size: 1.3rem;
+      transition: all 0.3s;
+
+      &:hover {
+        color: #fff;
+        font-size: 2rem;
+        font-weight: 900;
+        text-shadow: 0 0 10px #ffffff, 0 0 40px #87CEEB;
+        z-index: 100;
+        transform: scale(1.2);
       }
     }
+  }
+}
 
-    /* Container Hover Effect */
-    &:hover {
-      border-color: rgba(135, 206, 235, 0.3);
-      background: rgba(255, 255, 255, 0.05);
-    }
+/* Background Animation */
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2.5rem;
+    top: 80px;
+    left: 20px;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    top: 20px;
+    padding: 0 10px;
+  }
+
+  .floating-character {
+    width: 80px;
+    top: 20px;
+    right: 20px;
+  }
+
+  .sphere-wrapper {
+    height: 500px;
+  }
+
+  ::ng-deep .tagcloud .tagcloud--item {
+    font-size: 0.9rem;
   }
 }

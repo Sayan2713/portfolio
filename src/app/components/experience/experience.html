@@ -1,32 +1,58 @@
-<section class="experience-section">
-  <h2 class="section-title">Experience <span class="dot">.</span></h2>
-  
-  <div class="cards-container">
+<section class="experience-section" id="experience">
+  <div class="container">
     
-    <div class="card" #card1>
-      <div class="card-content">
-        <h3 class="role">Full Stack Developer Intern</h3>
-        <h4 class="company">SURE TRUST</h4>
-        <p class="date">Oct 2025 - Present</p>
-        <ul class="tasks">
-          <li>Built responsive web apps using Angular & Node.js.</li>
-          <li>Collaborated on end-to-end development & database integration.</li>
-        </ul>
-      </div>
-      <div class="glow"></div>
-    </div>
+    <h2 class="section-title">Professional <span class="highlight">Journey</span></h2>
 
-    <div class="card" #card2>
-      <div class="card-content">
-        <h3 class="role">Full Stack Developer Intern</h3>
-        <h4 class="company">Codec Technologies</h4>
-        <p class="date">Nov 2025 - Feb 2026</p>
-        <ul class="tasks">
-          <li>Developed real-time features using React & MySQL.</li>
-          <li>Optimized application performance & API schemas.</li>
-        </ul>
+    <div class="timeline-tree">
+      
+      <svg class="wavy-line" viewBox="0 0 100 1000" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="lineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#87CEEB" stop-opacity="0" />   <stop offset="20%" stop-color="#87CEEB" stop-opacity="0.5" /> <stop offset="50%" stop-color="#E0FFFF" stop-opacity="1" />   <stop offset="80%" stop-color="#87CEEB" stop-opacity="0.5" /> <stop offset="100%" stop-color="#87CEEB" stop-opacity="0" />  </linearGradient>
+        </defs>
+        <path d="M50,0 C80,200 20,400 50,600 C80,800 20,1000 50,1200" 
+              stroke="url(#lineGradient)" 
+              stroke-width="3" 
+              fill="none" 
+              vector-effect="non-scaling-stroke"/>
+      </svg>
+
+      <div class="job-card left" #jobCard>
+        <div class="card-content">
+          <div class="header">
+            <h3 class="role">Full Stack Developer Intern</h3>
+            <h4 class="company">SURE TRUST</h4>
+            <span class="indicator">Click to expand</span>
+          </div>
+          <div class="details">
+            <p class="date">Oct 2025 - Present</p>
+            <ul class="duties">
+              <li>Built responsive web apps using Angular & Node.js.</li>
+              <li>Collaborated on end-to-end development & database integration.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="connector"></div>
       </div>
-      <div class="glow"></div>
+
+      <div class="job-card right" #jobCard>
+        <div class="card-content">
+          <div class="header">
+            <h3 class="role">Full Stack Developer Intern</h3>
+            <h4 class="company">Codec Technologies</h4>
+            <span class="indicator">Click to expand</span>
+          </div>
+          <div class="details">
+            <p class="date">Nov 2025 - Feb 2026</p>
+            <ul class="duties">
+              <li>Developed real-time features using React & MySQL.</li>
+              <li>Optimized application performance & API schemas.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="connector"></div>
+      </div>
+
     </div>
 
   </div>

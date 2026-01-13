@@ -1,71 +1,256 @@
 .experience-section {
+  /* BACKGROUND (Same as Skills) */
+  background: linear-gradient(-45deg, #001f3f, #0088cc, #00bfff, #87ceeb);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  /* Add this inside .skills-section AND .experience-section */
+  background-attachment: fixed;
+
   min-height: 100vh;
-  background-color: #050505; /* Very dark grey */
-  padding: 6rem 2rem;
-  color: white;
+  padding: 8rem 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: white;
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    padding: 0 20px;
+  }
 
   .section-title {
-    font-size: 4rem;
-    font-family: 'Arial Black', sans-serif;
-    margin-bottom: 4rem;
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 5rem;
     text-transform: uppercase;
-    
-    .dot { color: #87CEEB; }
-  }
-
-  .cards-container {
-    display: flex;
-    gap: 3rem;
-    flex-wrap: wrap;
-    justify-content: center;
-    perspective: 1000px; /* Essential for 3D tilt */
-  }
-
-  .card {
-    width: 400px;
-    min-height: 300px;
-    background: rgba(255, 255, 255, 0.05); /* Glass */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 2.5rem;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     position: relative;
-    transition: transform 0.1s; /* Fast transition for mouse movement */
-    overflow: hidden;
+    z-index: 5;
+
+    .highlight {
+      color: #E0FFFF;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    }
+  }
+
+  /* --- TIMELINE TREE --- */
+  .timeline-tree {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 150px;
+    /* More space to see the curve */
+    padding: 50px 0;
+  }
+
+  /* WAVY NEON LINE SVG */
+  .wavy-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    /* Width of the wave oscillation */
+    height: 100%;
+    transform: translateX(-50%);
+    z-index: 1;
+    overflow: visible;
+    filter: drop-shadow(0 0 8px #87CEEB);
+    /* Neon Glow on the line */
+  }
+
+  /* --- JOB CARDS --- */
+  .job-card {
+    position: relative;
+    width: 45%;
     cursor: pointer;
+    perspective: 1000px;
+    z-index: 2;
 
-    /* Glow Effect */
-    &:hover {
-      border-color: #87CEEB;
-      box-shadow: 0 0 30px rgba(135, 206, 235, 0.2);
+    /* --- INITIAL HIDDEN STATE (Force Blur) --- */
+    opacity: 0;
+    filter: blur(20px);
+    /* Heavy blur initially */
+    transform: translateY(100px);
+    /* Pushed down initially */
+    transition: all 0.1s;
+    /* JS handles the main animation */
+
+    /* LEFT SIDE */
+    &.left {
+      align-self: flex-start;
+      text-align: right;
+
+      .connector {
+        right: -60px;
+        /* Push towards center */
+      }
     }
 
-    .role {
-      font-size: 1.5rem;
-      color: #87CEEB;
-      margin-bottom: 0.5rem;
+    /* RIGHT SIDE */
+    &.right {
+      align-self: flex-end;
+      text-align: left;
+
+      .connector {
+        left: -60px;
+        /* Push towards center */
+      }
     }
 
-    .company {
-      font-size: 1.2rem;
-      color: white;
-      margin-bottom: 0.5rem;
+    /* CARD DESIGN */
+    .card-content {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      padding: 25px;
+      transition: all 0.4s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: #E0FFFF;
+        box-shadow: 0 0 30px rgba(135, 206, 235, 0.4);
+        transform: scale(1.02);
+      }
     }
 
-    .date {
-      font-size: 0.9rem;
-      color: #888;
-      margin-bottom: 1.5rem;
-      font-family: monospace;
+    /* HEADER */
+    .header {
+      .role {
+        font-size: 1.6rem;
+        color: #fff;
+        margin: 0 0 5px 0;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+      }
+
+      .company {
+        font-size: 1.2rem;
+        color: #87CEEB;
+        margin: 0;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .indicator {
+        display: block;
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.6);
+        margin-top: 15px;
+        font-style: italic;
+      }
     }
 
-    .tasks li {
-      color: #ccc;
-      margin-bottom: 0.5rem;
-      font-size: 0.95rem;
-      line-height: 1.5;
+    /* DETAILS (Expandable) */
+    .details {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+      .date {
+        color: #E0FFFF;
+        font-family: monospace;
+        margin: 20px 0 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding-bottom: 5px;
+        display: inline-block;
+      }
+
+      .duties {
+        list-style: none;
+        padding: 0;
+
+        li {
+          color: rgba(255, 255, 255, 0.9);
+          margin-bottom: 8px;
+          line-height: 1.5;
+          font-size: 0.95rem;
+        }
+      }
+    }
+
+    /* EXPAND LOGIC */
+    &:hover .details,
+    &.active .details {
+      max-height: 500px;
+      opacity: 1;
+      margin-top: 10px;
+    }
+
+    /* CONNECTOR ORB (White/Blue Glow - No Black Hole) */
+    .connector {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      /* Pure White Core */
+      border-radius: 50%;
+      z-index: 5;
+      box-shadow:
+        0 0 10px #87CEEB,
+        0 0 20px #00BFFF,
+        inset 0 0 5px #87CEEB;
+      transition: transform 0.3s;
+    }
+
+    &:hover .connector {
+      transform: translateY(-50%) scale(1.5);
+      background: #E0FFFF;
+    }
+  }
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .wavy-line {
+    left: 20px;
+    width: 40px;
+    transform: none;
+  }
+
+  .wavy-line path {
+    d: path("M20,0 C30,200 10,400 20,600");
+  }
+
+  .job-card {
+    width: 85%;
+    margin-left: 60px;
+    text-align: left !important;
+
+    &.left,
+    &.right {
+      align-self: flex-start;
+
+      .connector {
+        left: -50px;
+        right: auto;
+      }
     }
   }
 }

@@ -1,12 +1,22 @@
 .projects-section {
-  background-color: #000;
+  /* 1. SEAMLESS AURORA BACKGROUND */
+  background: linear-gradient(-45deg, #001f3f, #0088cc, #00bfff, #87ceeb);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  background-attachment: fixed; /* Locks bg to remove lines */
+  
   padding: 6rem 2rem;
   color: white;
   position: relative;
+  
+  /* Fix for pixel gap */
+  margin-top: -1px; 
 
   .container {
-    max-width: 1000px; /* Slightly narrower for focus */
+    max-width: 1000px; 
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
   }
 
   .section-title {
@@ -15,28 +25,37 @@
     margin-bottom: 4rem;
     text-transform: uppercase;
     text-align: left;
-    .dot { color: #87CEEB; }
+    text-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    color: white; 
+    
+    .dot { 
+      color: #E0FFFF; 
+      text-shadow: 0 0 10px #E0FFFF;
+    } 
   }
 
   .stack-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 4rem; /* Gap between cards before they stick */
-    padding-bottom: 10vh; /* Extra space at bottom */
+    gap: 4rem; 
+    padding-bottom: 10vh; 
   }
 
   .sticky-card {
+    /* STICKY STACKING LOGIC */
     position: sticky;
-    top: 15vh; /* This makes them stack at the top */
-    height: 60vh; /* Fixed height for consistency */
+    top: 15vh; 
+    height: 60vh; 
     perspective: 1000px;
-    
-    /* Create slight visual stack offset using the index variable */
-    margin-top: calc(var(--index) * 20px); 
+    margin-top: calc(var(--index) * 40px); 
     
     .card-inner {
-      background: #111;
-      border: 1px solid #333;
+      /* 2. THE "AWESOME" CONTACT PAGE GLASS STYLE */
+      background: rgba(255, 255, 255, 0.1); /* White transparent tint */
+      backdrop-filter: blur(20px);           /* Frosted blur */
+      -webkit-backdrop-filter: blur(20px);
+      
+      border: 1px solid rgba(255, 255, 255, 0.3); /* Crisper white border */
       border-radius: 24px;
       padding: 3rem;
       height: 100%;
@@ -44,13 +63,13 @@
       justify-content: space-between;
       align-items: center;
       gap: 2rem;
-      box-shadow: 0 -10px 40px rgba(0,0,0,0.5); /* Shadow creates depth between stacked cards */
-      transition: transform 0.3s ease;
-      background: rgba(20, 20, 20, 0.95); /* Slight transparency */
-      backdrop-filter: blur(10px);
+      
+      /* Clean shadow */
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, background 0.3s ease;
     }
 
-    /* Left Side: Content */
+    /* Left Side Content */
     .card-content {
       flex: 1;
       display: flex;
@@ -60,7 +79,8 @@
       .number {
         font-size: 4rem;
         font-weight: 900;
-        color: rgba(255, 255, 255, 0.1);
+        /* Subtle white watermark number */
+        color: rgba(255, 255, 255, 0.2); 
         margin-bottom: 1rem;
         line-height: 1;
       }
@@ -68,11 +88,14 @@
       h3 {
         font-size: 2rem;
         margin-bottom: 1rem;
-        color: white;
+        /* Bright White Title */
+        color: #ffffff; 
+        text-shadow: 0 2px 10px rgba(0,0,0,0.1);
       }
 
       p {
-        color: #aaa;
+        /* Off-white text for readability on glass */
+        color: rgba(255, 255, 255, 0.9);
         font-size: 1.1rem;
         line-height: 1.6;
         margin-bottom: 2rem;
@@ -85,26 +108,35 @@
         margin-bottom: 2rem;
         
         .pill {
-          background: rgba(135, 206, 235, 0.1);
-          color: #87CEEB;
+          /* Glassy Pills inside the card */
+          background: rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: #E0FFFF; /* Light Cyan Text */
           padding: 6px 14px;
           border-radius: 20px;
           font-size: 0.9rem;
           font-family: monospace;
+          font-weight: bold;
+          text-transform: uppercase;
         }
       }
 
       .btn-link {
-        color: white;
+        color: #87CEEB; /* Neon Sky Blue Link */
         text-decoration: none;
         font-weight: bold;
-        border-bottom: 1px solid #87CEEB;
+        border-bottom: 1px solid rgba(135, 206, 235, 0.5);
         display: inline-block;
         width: fit-content;
         padding-bottom: 5px;
-        transition: color 0.3s;
+        transition: all 0.3s;
         
-        &:hover { color: #87CEEB; }
+        &:hover { 
+          color: #ffffff; 
+          border-color: #ffffff;
+          text-shadow: 0 0 10px #87CEEB;
+          padding-left: 5px;
+        }
       }
     }
 
@@ -114,7 +146,8 @@
       height: 100%;
       border-radius: 16px;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
       
       img {
         width: 100%;
@@ -124,19 +157,34 @@
       }
     }
 
-    /* Hover Effect */
+    /* Hover Effect: Card brightens slightly */
+    &:hover .card-inner {
+      background: rgba(255, 255, 255, 0.15); /* Slightly lighter on hover */
+      border-color: #87CEEB; /* Blue border glow */
+    }
+
     &:hover .card-visual img {
-      transform: scale(1.05); /* Zoom image slightly */
+      transform: scale(1.05); 
     }
   }
 }
 
+/* Background Animation */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
+  .section-title { font-size: 2.5rem; text-align: center; }
+  
   .sticky-card {
     height: auto !important;
-    position: relative !important; /* Disable stacking on mobile */
+    position: relative !important; 
     top: 0 !important;
+    margin-top: 2rem;
     
     .card-inner {
       flex-direction: column-reverse;
